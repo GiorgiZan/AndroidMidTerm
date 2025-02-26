@@ -3,6 +3,7 @@ package com.example.androidmidterm.data.di
 import android.content.Context
 import com.example.androidmidterm.BuildConfig
 import com.example.androidmidterm.common.ApiHelper
+import com.example.androidmidterm.data.remote.retrofit.RetrofitGeminiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -35,15 +36,18 @@ object AppModule {
 
         return builder.build()
     }
-
+// AIzaSyBQ8P4ZcbULmqM5HxjELrswH6Calp35IX8
 
     @OptIn(ExperimentalSerializationApi::class)
     @Provides
-    fun provideRetrofit(client: OkHttpClient): Retrofit {
+    fun provideGeminiRetrofit(client: OkHttpClient): Retrofit {
+        val json = Json {
+            ignoreUnknownKeys = true
+        }
         return Retrofit.Builder()
-//            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl("https://generativelanguage.googleapis.com/v1beta/")
             .client(client)
-            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
 
@@ -53,10 +57,10 @@ object AppModule {
     }
 
 
-//    @Provides
-//    fun provideRetrofitService(retrofit: Retrofit): RetrofitService {
-//        return retrofit.create(RetrofitService::class.java)
-//    }
+    @Provides
+    fun provideGeminiRetrofitService(retrofit: Retrofit): RetrofitGeminiService {
+        return retrofit.create(RetrofitGeminiService::class.java)
+    }
 
 
 }

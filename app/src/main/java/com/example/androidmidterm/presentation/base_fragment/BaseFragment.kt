@@ -25,9 +25,12 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflater: (LayoutInfla
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUp()
         listeners()
     }
 
+
+    abstract fun setUp()
 
     abstract fun listeners()
 

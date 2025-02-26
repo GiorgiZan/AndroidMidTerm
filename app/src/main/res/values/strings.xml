@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">AndroidMidTerm</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ask_gymbro_a_question">Ask GymBro a question</string>
+    <string name="message_input_should_not_be_empty">Message input should not be empty!</string>
+    <string name="enter_email">Email</string>
+    <string name="enter_age">Age</string>
+    <string name="enter_weight">Weight(Kg)</string>
+    <string name="height">Height(Cm)</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+
+    <string name="email_should_not_be_empty">Email should not be empty!</string>
+    <string name="password_should_not_be_empty">Password should not be empty!</string>
+    <string name="invalid_email_address">Invalid Email!</string>
+    <string name="passwords_should_be_equal">Passwords should be equal!</string>
+    <string name="register">Register</string>
+    <string name="register_successful">Register Successful</string>
+    <string name="age_should_not_be_empty">Age should not be empty</string>
+    <string name="weight_should_not_be_empty">Weight should not be empty</string>
+    <string name="height_should_not_be_empty">Height should not be empty</string>
+    <string name="enter_valid_age_12_100">Enter Valid age! (12-100)</string>
+    <string name="weight_should_be_valid_20_635">Weight should be valid! (20-635)</string>
+    <string name="login">Login</string>
+    <string name="welcome_to_gymbro">Welcome to GymBro!</string>
+    <string name="registration">Registration</string>
+    <string name="remember_me">Remember me</string>
+
 </resources>

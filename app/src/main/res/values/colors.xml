@@ -3,4 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#BA2234</color>
+    <color name="box_color">#e6e8ec</color>
+    <color name="date_color">#B1B5C3</color>
+    <color name="loading">#80000000</color>
+    <color name="pale_gray">#FCFCFD</color>
+    <color name="blackish_gray">#F4F5F6</color>
 </resources>

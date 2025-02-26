@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.devtools.ksp)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -23,9 +24,10 @@ android {
     }
 
     buildTypes {
-//        debug {
+        debug {
 //            buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
-//        }
+            buildConfigField("String", "API_KEY", "\"AIzaSyBQ8P4ZcbULmqM5HxjELrswH6Calp35IX8\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -55,6 +57,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -80,6 +83,11 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     implementation(libs.androidx.core.splashscreen)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
+
 }
 
 kapt {

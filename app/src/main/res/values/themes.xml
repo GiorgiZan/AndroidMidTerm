@@ -15,4 +15,7 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_inset</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.AndroidMidTerm</item>
     </style>
+
+    <style name="checkBoxStyle" parent="Base.Theme.AppCompat"/>
+
 </resources>
