@@ -1,4 +1,4 @@
-package com.example.androidmidterm.presentation.register
+package com.example.androidmidterm.presentation.screens.register
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -32,12 +32,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
 
     private fun registration() {
         val email = binding.etEmail.text.toString()
+        val password = binding.etPassword.text.toString()
+        val username = binding.etUserName.text.toString()
         val age = binding.etAge.text.toString().toInt()
         val weight = binding.etWeight.text.toString().toInt()
         val height = binding.etHeight.text.toString().toInt()
-        val password = binding.etPassword.text.toString()
 
-        registerViewModel.register(email, password, weight, age, height)
+        registerViewModel.register(email, password, username, weight, age, height)
         registerStateManagement()
     }
 
@@ -119,6 +120,18 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 .matches()
         ) {
             binding.root.showErrorSnackBar(getString(R.string.invalid_email_address))
+            return false
+        }
+        if (binding.etUserName.text.toString().isEmpty()) {
+            binding.root.showErrorSnackBar(getString(R.string.username_should_not_be_empty))
+            return false
+        }
+        if (binding.etUserName.text.toString().length < 3) {
+            binding.root.showErrorSnackBar(getString(R.string.username_should_be_at_least_3_characters_long))
+            return false
+        }
+        if (!binding.etUserName.text.toString().matches("^[a-zA-Z0-9_]*$".toRegex())) {
+            binding.root.showErrorSnackBar(getString(R.string.username_can_only_contain_letters_numbers_and_underscores))
             return false
         }
         if (binding.etAge.text.toString().isEmpty()) {

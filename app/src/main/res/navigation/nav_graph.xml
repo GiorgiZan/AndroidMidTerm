@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.example.androidmidterm.presentation.chat.ChatFragment"
+        android:name="com.example.androidmidterm.presentation.screens.chat.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.androidmidterm.presentation.register.RegisterFragment"
+        android:name="com.example.androidmidterm.presentation.screens.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -21,11 +21,28 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.androidmidterm.presentation.login.LoginFragment"
+        android:name="com.example.androidmidterm.presentation.screens.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.androidmidterm.presentation.screens.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.androidmidterm.presentation.screens.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

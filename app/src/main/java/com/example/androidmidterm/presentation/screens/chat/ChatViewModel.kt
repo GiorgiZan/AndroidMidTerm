@@ -1,4 +1,4 @@
-package com.example.androidmidterm.presentation.chat
+package com.example.androidmidterm.presentation.screens.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

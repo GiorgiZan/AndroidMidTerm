@@ -1,18 +1,14 @@
-package com.example.androidmidterm.presentation.login
+package com.example.androidmidterm.presentation.screens.login
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.androidmidterm.R
 import com.example.androidmidterm.common.Resource
-import com.example.androidmidterm.databinding.FragmentChatBinding
 import com.example.androidmidterm.databinding.FragmentLoginBinding
 import com.example.androidmidterm.presentation.base_fragment.BaseFragment
 import com.example.androidmidterm.util.showErrorSnackBar
@@ -29,7 +25,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
 
     override fun setUp() {
-
+        navigateToHomeIfRememberMeIsChecked()
     }
 
     override fun listeners() {
@@ -63,8 +59,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                                 hasNavigatedToHome = true
                                 loaded()
 
-                                binding.root.showSuccessSnackBar(getString(R.string.register_successful))
-
+                                binding.root.showSuccessSnackBar(getString(R.string.login_successful))
+                                navigateToHome()
                             }
                         }
 
@@ -89,13 +85,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     private fun loading() {
         binding.loading.visibility = View.VISIBLE
+        binding.chkBoxRememberMe.isEnabled = false
         binding.btnRegister.isEnabled = false
+        binding.btnLogin.isEnabled = false
 
     }
 
     private fun loaded() {
         binding.loading.visibility = View.GONE
+        binding.chkBoxRememberMe.isEnabled = true
         binding.btnRegister.isEnabled = true
+        binding.btnLogin.isEnabled = true
     }
 
     private fun validateFields(): Boolean {
@@ -118,10 +118,28 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         return true
     }
 
-    // fix login registartion
     private fun navigateToRegisterListener() {
         binding.btnRegister.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+        }
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(
+            LoginFragmentDirections.actionLoginFragmentToHomeFragment(),
+            NavOptions.Builder()
+                .setPopUpTo(R.id.loginFragment, true)
+                .build()
+        )
+    }
+
+    private fun navigateToHomeIfRememberMeIsChecked(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                if (loginViewModel.checkSavedUser()){
+                    navigateToHome()
+                }
+            }
         }
     }
 }

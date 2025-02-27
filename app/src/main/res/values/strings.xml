@@ -6,7 +6,7 @@
     <string name="enter_email">Email</string>
     <string name="enter_age">Age</string>
     <string name="enter_weight">Weight(Kg)</string>
-    <string name="height">Height(Cm)</string>
+    <string name="enter_height">Height(Cm)</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
 
@@ -16,14 +16,26 @@
     <string name="passwords_should_be_equal">Passwords should be equal!</string>
     <string name="register">Register</string>
     <string name="register_successful">Register Successful</string>
+    <string name="login_successful">Login Successful</string>
     <string name="age_should_not_be_empty">Age should not be empty</string>
     <string name="weight_should_not_be_empty">Weight should not be empty</string>
     <string name="height_should_not_be_empty">Height should not be empty</string>
-    <string name="enter_valid_age_12_100">Enter Valid age! (12-100)</string>
-    <string name="weight_should_be_valid_20_635">Weight should be valid! (20-635)</string>
+    <string name="enter_valid_age_12_100">Enter Valid age! (12–100)</string>
+    <string name="weight_should_be_valid_20_635">Weight should be valid! (20–635)</string>
     <string name="login">Login</string>
     <string name="welcome_to_gymbro">Welcome to GymBro!</string>
     <string name="registration">Registration</string>
     <string name="remember_me">Remember me</string>
+    <string name="username">Username</string>
+    <string name="username_should_not_be_empty">Username should not be empty</string>
+    <string name="username_should_be_at_least_3_characters_long">Username should be at least 3 characters long!</string>
+    <string name="username_can_only_contain_letters_numbers_and_underscores">Username can only contain letters, numbers, and underscores!</string>
+    <string name="age">Age</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="log_out">Log out</string>
 
 </resources>

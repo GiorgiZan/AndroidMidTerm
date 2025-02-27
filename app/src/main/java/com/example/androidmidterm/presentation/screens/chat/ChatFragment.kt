@@ -1,4 +1,4 @@
-package com.example.androidmidterm.presentation.chat
+package com.example.androidmidterm.presentation.screens.chat
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -6,7 +6,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.androidmidterm.BuildConfig
 import com.example.androidmidterm.R
 import com.example.androidmidterm.adapter.MessageAdapter
 import com.example.androidmidterm.common.Resource

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presentation.register.RegisterFragment">
+    tools:context=".presentation.screens.register.RegisterFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivBackIcon"
@@ -50,7 +50,7 @@
         android:id="@+id/etEmail"
         android:layout_width="360dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:layout_marginHorizontal="26dp"
         android:background="@drawable/rounded_rectangle_black_corners"
         android:hint="@string/enter_email"
@@ -66,7 +66,7 @@
         android:id="@+id/etAge"
         android:layout_width="106dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/rounded_rectangle_black_corners"
         android:hint="@string/enter_age"
         android:inputType="number"
@@ -74,7 +74,7 @@
         android:padding="17sp"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/etEmail"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/etUserName" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etWeight"
@@ -91,11 +91,26 @@
         app:layout_constraintTop_toTopOf="@+id/etAge" />
 
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etUserName"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_rectangle_black_corners"
+        android:hint="@string/username"
+        android:inputType="textPersonName"
+        android:maxLength="30"
+        android:padding="17sp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/etHeight"
+        app:layout_constraintStart_toEndOf="@+id/etAge"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etHeight"
         android:layout_width="106dp"
         android:layout_height="50dp"
         android:background="@drawable/rounded_rectangle_black_corners"
-        android:hint="@string/height"
+        android:hint="@string/enter_height"
         android:inputType="number"
         android:maxLength="3"
         android:padding="17sp"
@@ -107,7 +122,7 @@
         android:id="@+id/passwordLayout"
         android:layout_width="360dp"
         android:layout_height="53dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="15dp"
         app:boxBackgroundMode="none"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@+id/etHeight"
