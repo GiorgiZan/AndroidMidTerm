@@ -11,12 +11,10 @@ import com.example.androidmidterm.adapter.MessageAdapter
 import com.example.androidmidterm.common.Resource
 import com.example.androidmidterm.databinding.FragmentChatBinding
 import com.example.androidmidterm.presentation.base_fragment.BaseFragment
-import com.example.androidmidterm.presentation.model.Message
-import com.google.android.material.snackbar.Snackbar
+import com.example.androidmidterm.util.showErrorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 
 @AndroidEntryPoint
@@ -29,7 +27,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
     override fun setUp() {
         setUpMessagesRecyclerView()
-        messageState()
     }
 
     override fun listeners() {
@@ -48,12 +45,14 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                         is Resource.Success -> {
                             loaded()
                             val newMessages = resource.data
-                            messageAdapter.submitList(newMessages)
+                            messageAdapter.submitList(newMessages) {
+                                binding.RecyclerViewContainer.scrollToPosition(messageAdapter.itemCount - 1)
+                            }
+
                         }
                         is Resource.Error -> {
                             loaded()
-                            Snackbar.make(binding.root, resource.errorMessage, Snackbar.LENGTH_LONG)
-                                .show()
+                            binding.root.showErrorSnackBar(resource.errorMessage)
                         }
                     }
                 }
@@ -71,17 +70,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                 return@setOnClickListener
             }
 
-            val userMessage = Message(
-                id = UUID.randomUUID(),
-                text = inputText,
-            )
-            chatViewModel.addMessageToList(userMessage)
 
             binding.etInputMessage.text?.clear()
 
             chatViewModel.fetchGeminiMessage(inputText)
+            messageState()
 
-            binding.RecyclerViewContainer.scrollToPosition(chatViewModel.messages.size - 1)
         }
     }
 

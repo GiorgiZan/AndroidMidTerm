@@ -24,6 +24,12 @@ class HomeViewModel @Inject constructor(
     private val _userState = MutableStateFlow<Resource<User>>(Resource.Loading)
     val userState: StateFlow<Resource<User>> = _userState
 
+    private val _username = MutableStateFlow("")
+    val username: StateFlow<String> = _username
+
+    init {
+        getUsername()
+    }
 
     fun getUserDataFromFireStore() {
         viewModelScope.launch {
@@ -43,7 +49,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-
+    private fun getUsername() {
+        viewModelScope.launch {
+            _username.value = dataStoreRepository.username.firstOrNull() ?: ""
+        }
+    }
 
 
 }

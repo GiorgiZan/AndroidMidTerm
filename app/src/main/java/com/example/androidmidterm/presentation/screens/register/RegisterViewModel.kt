@@ -18,9 +18,6 @@ class RegisterViewModel @Inject constructor(
     private val _registerState = MutableStateFlow<Resource<Unit>>(Resource.Loading)
     val registerState: StateFlow<Resource<Unit>> = _registerState
 
-
-
-
     fun register(email: String, password: String, username :String, weight: Int, age: Int, height: Int) {
         viewModelScope.launch {
             _registerState.value = Resource.Loading

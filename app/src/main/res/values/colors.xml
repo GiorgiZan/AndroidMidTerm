@@ -8,4 +8,5 @@
     <color name="loading">#80000000</color>
     <color name="pale_gray">#FCFCFD</color>
     <color name="blackish_gray">#F4F5F6</color>
+    <color name="transparent">#36FFFFFF</color>
 </resources>

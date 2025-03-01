@@ -16,41 +16,38 @@ class ChatViewModel @Inject constructor(
     private val geminiRepository: GeminiRepository
 ) : ViewModel() {
 
-    private val _geminiMessageState = MutableStateFlow<Resource<List<Message>>>(Resource.Success(emptyList()))
+    private val _geminiMessageState = MutableStateFlow<Resource<List<Message>>>(Resource.Loading)
     val geminiMessageState: StateFlow<Resource<List<Message>>> = _geminiMessageState
 
     private val _messages = mutableListOf<Message>()
     val messages = listOf<Message>()
 
+
+
     fun fetchGeminiMessage(prompt: String) {
+        val userMessage = Message(id = UUID.randomUUID(), text = prompt)
+
         viewModelScope.launch {
+            _geminiMessageState.value = Resource.Loading
+
             val history = _messages.joinToString("\n") { "User: ${it.text}" }
             val fullPrompt = "$history\nUser: $prompt\nAI:"
 
             val result = geminiRepository.fetchGeminiResponse(fullPrompt)
             when (result) {
                 is Resource.Success -> {
-                    val newMessages = result.data.candidates?.map { candidate ->
-                        Message(
-                            id = UUID.randomUUID(),
-                            text = candidate.content?.parts?.firstOrNull()?.text ?: "No content",
-                        )
+                    _messages.add(userMessage) // add user's message only on success
+
+                    val aiMessages = result.data.candidates?.map { candidate ->
+                        Message(id = UUID.randomUUID(), text = candidate.content?.parts?.firstOrNull()?.text ?: "No content")
                     } ?: emptyList()
 
-                    // Avoid duplicates before adding
-                    newMessages.forEach { message ->
-                        if (!_messages.contains(message)) {
-                            _messages.add(message)
-                        }
-                    }
-
-                    _geminiMessageState.value = Resource.Success(_messages.toList()) // Ensure a new list instance
+                    _messages.addAll(aiMessages) // add AI response messages
+                    _geminiMessageState.value = Resource.Success(_messages.toList())
                 }
-
                 is Resource.Error -> {
                     _geminiMessageState.value = Resource.Error(result.errorMessage)
                 }
-
                 is Resource.Loading -> {
                     _geminiMessageState.value = Resource.Loading
                 }
@@ -58,10 +55,5 @@ class ChatViewModel @Inject constructor(
         }
     }
 
-
-    fun addMessageToList(message: Message) {
-        _messages.add(message)
-        _geminiMessageState.value = Resource.Success(_messages.toList()) // Ensure UI updates
-    }
 }
 

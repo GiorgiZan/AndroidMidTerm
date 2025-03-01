@@ -1,5 +1,6 @@
 package com.example.androidmidterm.presentation.screens.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidmidterm.common.Resource
@@ -9,7 +10,6 @@ import com.example.androidmidterm.presentation.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
@@ -27,10 +27,13 @@ class LoginViewModel @Inject constructor(
     private val _loginState = MutableStateFlow<Resource<Unit>>(Resource.Loading)
     val loginState: StateFlow<Resource<Unit>> = _loginState
 
-
-
     suspend fun checkSavedUser(): Boolean {
+        if (!dataStoreRepository.rememberMe.first()){
+            dataStoreRepository.clearLoginInfo()
+            return false
+        }
         val token = dataStoreRepository.userId.first()
+        Log.d("toke", "$token")
         return !token.isNullOrEmpty()
     }
 
@@ -65,28 +68,5 @@ class LoginViewModel @Inject constructor(
             _loginState.value = result
         }
     }
-//    fun login(email: String, password: String, rememberMe: Boolean) {
-//        viewModelScope.launch {
-//            val result = loginRepository.loginUser(email, password)
-//            when (result) {
-//                is Resource.Success -> {
-//                    val user = FirebaseAuth.getInstance().currentUser
-//                    val idToken = user?.getIdToken(true)?.await()?.token
-//
-//                    idToken?.let { token ->
-//                        dataStoreRepository.saveLoginInfo(token, rememberMe)
-//                    }
-//                    _loginState.value = Resource.Success(Unit)
-//                }
-//
-//                is Resource.Error -> {
-//                    _loginState.value = Resource.Error(result.errorMessage)
-//                }
-//
-//                is Resource.Loading -> {
-//                }
-//            }
-//        }
-//    }
 
 }

@@ -31,7 +31,7 @@ class DataStoreRepository @Inject constructor(
     val userAge: Flow<Int?> = dataStore.data.map { it[USER_AGE] }
     val userWeight: Flow<Int?> = dataStore.data.map { it[USER_WEIGHT] }
     val userHeight: Flow<Int?> = dataStore.data.map { it[USER_HEIGHT] }
-    private val rememberMe: Flow<Boolean> = dataStore.data.map { it[REMEMBER_ME] ?: false }
+    val rememberMe: Flow<Boolean> = dataStore.data.map { it[REMEMBER_ME] ?: false }
 
     suspend fun saveUserInfo(
         uid: String,

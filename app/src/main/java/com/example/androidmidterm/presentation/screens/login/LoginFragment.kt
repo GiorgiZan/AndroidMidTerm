@@ -1,5 +1,6 @@
 package com.example.androidmidterm.presentation.screens.login
 
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -60,6 +61,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                                 loaded()
 
                                 binding.root.showSuccessSnackBar(getString(R.string.login_successful))
+                                Log.d("test", "test")
                                 navigateToHome()
                             }
                         }
@@ -136,6 +138,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun navigateToHomeIfRememberMeIsChecked(){
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                Log.d("check", "${loginViewModel.checkSavedUser()}")
                 if (loginViewModel.checkSavedUser()){
                     navigateToHome()
                 }

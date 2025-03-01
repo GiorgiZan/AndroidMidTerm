@@ -1,5 +1,7 @@
 package com.example.androidmidterm.data.di
 
+import com.example.androidmidterm.data.repository.gemini.GeminiRepository
+import com.example.androidmidterm.data.repository.gemini.GeminiRepositoryImpl
 import com.example.androidmidterm.data.repository.login.LoginRepository
 import com.example.androidmidterm.data.repository.login.LoginRepositoryImpl
 import com.example.androidmidterm.data.repository.profile.ProfileRepository
@@ -33,4 +35,10 @@ abstract class RepositoryModule {
     abstract fun bindProfileRepository(
         impl: ProfileRepositoryImpl
     ): ProfileRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindGeminiRepository(
+        impl: GeminiRepositoryImpl
+    ): GeminiRepository
 }

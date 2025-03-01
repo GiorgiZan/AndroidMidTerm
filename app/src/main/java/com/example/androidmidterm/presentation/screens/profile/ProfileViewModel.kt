@@ -41,7 +41,7 @@ class ProfileViewModel @Inject constructor(
     }
 
 
-    fun updateProfile(email: String, password: String, username :String, weight: Int, age: Int, height: Int) {
+    fun updateProfile(username: String, age: Int, weight: Int, height: Int) {
         viewModelScope.launch {
             _profileState.value = Resource.Loading
 
@@ -50,5 +50,11 @@ class ProfileViewModel @Inject constructor(
             _profileState.value = result
         }
     }
+
+
+    suspend fun logOut() {
+        dataStoreRepository.clearLoginInfo()
+    }
+
 
 }
