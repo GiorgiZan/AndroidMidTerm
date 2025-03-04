@@ -10,8 +10,8 @@
         android:id="@+id/ivBackIcon"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="35dp"
         android:background="@drawable/rounded_rectangle_black_corners"
         android:elevation="10dp"
         android:paddingStart="10dp"
@@ -22,15 +22,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivProfileLogo"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="50dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:background="@drawable/circle"
+        android:backgroundTint="@color/mint"
+        android:padding="40dp"
+        android:src="@drawable/weight"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.35"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.73" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/usernameInputLayout"
@@ -62,7 +68,7 @@
         android:layout_height="220dp"
         android:elevation="5dp"
         app:cardCornerRadius="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivProfileLogo"/>
@@ -141,13 +147,28 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/black_rounded_rectangle"
         android:text="@string/edit"
+        android:backgroundTint="@color/mint"
         android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="17sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonChangeLanguage"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/black_rounded_rectangle"
+        android:backgroundTint="@color/mint"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textStyle="bold"
+        android:text="@string/change_language"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnLogOut"
+        app:layout_constraintTop_toTopOf="@+id/btnLogOut" />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -176,8 +197,8 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="17sp"
-        android:textStyle="bold"
         android:visibility="gone"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintStart_toEndOf="@id/btnSave"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
@@ -187,14 +208,15 @@
         android:id="@+id/btnLogOut"
         android:layout_width="180dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="35dp"
         android:background="@drawable/black_rounded_rectangle"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/bright_red"
         android:text="@string/log_out"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="17sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/buttonChangeLanguage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

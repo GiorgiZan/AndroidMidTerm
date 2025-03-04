@@ -57,4 +57,11 @@ class ProfileViewModel @Inject constructor(
     }
 
 
+    fun updateLanguage(language: String) {
+        viewModelScope.launch {
+            dataStoreRepository.saveLanguagePreference(language)
+            dataStoreRepository.applySavedLanguage()
+        }
+    }
+
 }

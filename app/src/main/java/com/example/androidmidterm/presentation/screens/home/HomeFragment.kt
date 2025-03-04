@@ -1,7 +1,9 @@
 package com.example.androidmidterm.presentation.screens.home
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.androidmidterm.databinding.FragmentHomeBinding
 import com.example.androidmidterm.presentation.base_fragment.BaseFragment
@@ -14,20 +16,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private val homeViewModel: HomeViewModel by viewModels()
 
     override fun setUp() {
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        lifecycleScope.launch {
-            homeViewModel.username.collectLatest { username ->
-//                binding.goToProfile.text = username // Set it to your EditText
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeViewModel.workoutCount.collectLatest { workout ->
+                    binding.tvWorkoutCountContainer.text = workout.toString()
+                }
             }
         }
     }
+
+
     override fun listeners() {
         navigateToProfileListener()
         navigateToChatListener()
+        navigateToWorkoutListener()
     }
 
 
@@ -45,7 +47,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private fun navigateToWorkoutListener() {
         binding.tvWorkoutContainer.setOnClickListener {
-//            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToChatFragment())
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDifficultyFragment())
         }
     }
 

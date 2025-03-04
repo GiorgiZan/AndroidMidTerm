@@ -9,7 +9,7 @@ import com.example.androidmidterm.databinding.MessageLeftBinding
 import com.example.androidmidterm.databinding.MessageRightBinding
 import com.example.androidmidterm.presentation.model.Message
 
-class MessageAdapter : ListAdapter<Message,RecyclerView.ViewHolder>(MessageDiffUtil()) {
+class MessageAdapter : ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffUtil()) {
 
     companion object {
         const val LEFT_MESSAGE = 1
@@ -38,10 +38,8 @@ class MessageAdapter : ListAdapter<Message,RecyclerView.ViewHolder>(MessageDiffU
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val message = getItem(position)
         if (holder is LeftMessageHolder) {
-//            val leftMessage = getItem(position)
             holder.onBind(message)
         } else if (holder is RightMessageHolder) {
-//            val rightMessage = getItem(position)
             holder.onBind(message)
         }
     }
@@ -53,7 +51,7 @@ class MessageAdapter : ListAdapter<Message,RecyclerView.ViewHolder>(MessageDiffU
 
     inner class LeftMessageHolder(private val binding: MessageLeftBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(leftMessage:Message) {
+        fun onBind(leftMessage: Message) {
             binding.tvMessageBox.text = leftMessage.text
             binding.tvDate.text = leftMessage.date
 
@@ -62,7 +60,7 @@ class MessageAdapter : ListAdapter<Message,RecyclerView.ViewHolder>(MessageDiffU
 
     inner class RightMessageHolder(private val binding: MessageRightBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun onBind(rightMessage:Message) {
+        fun onBind(rightMessage: Message) {
             binding.tvMessageBox.text = rightMessage.text
             binding.tvDate.text = rightMessage.date
         }

@@ -2,6 +2,7 @@ package com.example.androidmidterm.common
 
 
 import android.content.Context
+import com.example.androidmidterm.R
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -11,7 +12,7 @@ class ApiHelper(private val context: Context) {
 
     suspend fun <T> handleHttpRequest(apiCall: suspend () -> Response<T>): Resource<T> {
         if (!NetworkHelper.isNetworkAvailable(context)) {
-            return Resource.Error(errorMessage = "No internet connection")
+            return Resource.Error(errorMessage = context.getString(R.string.no_internet_connection))
         }
 
         val response = apiCall.invoke()

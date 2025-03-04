@@ -1,6 +1,7 @@
 package com.example.androidmidterm.common
 
 import android.content.Context
+import com.example.androidmidterm.R
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -10,7 +11,7 @@ class FirebaseHelper(private val context: Context) {
 
     suspend fun <T> handleFirebaseRequest(apiCall: suspend () -> T): Resource<T> {
         if (!NetworkHelper.isNetworkAvailable(context)) {
-            return Resource.Error(errorMessage = "No internet connection")
+            return Resource.Error(errorMessage = context.getString(R.string.no_internet_connection))
         }
 
         return try {

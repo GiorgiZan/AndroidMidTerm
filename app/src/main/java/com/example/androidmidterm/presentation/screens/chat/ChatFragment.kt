@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidmidterm.R
 import com.example.androidmidterm.adapter.MessageAdapter
@@ -31,6 +32,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
 
     override fun listeners() {
         askAI()
+        navigateBackListener()
     }
 
 
@@ -42,6 +44,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                         is Resource.Loading -> {
                             loading()
                         }
+
                         is Resource.Success -> {
                             loaded()
                             val newMessages = resource.data
@@ -50,6 +53,7 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
                             }
 
                         }
+
                         is Resource.Error -> {
                             loaded()
                             binding.root.showErrorSnackBar(resource.errorMessage)
@@ -85,6 +89,12 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(FragmentChatBinding::infl
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = messageAdapter
+        }
+    }
+
+    private fun navigateBackListener() {
+        binding.ivBackIcon.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

@@ -16,6 +16,7 @@ import com.example.androidmidterm.util.showSuccessSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
@@ -32,6 +33,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         cancelEditing()
         saveEditing()
         logOut()
+
+
+        languageChange()
 
     }
 
@@ -104,6 +108,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     }
                 }
             }
+        }
+    }
+
+    private fun languageChange() {
+        binding.buttonChangeLanguage.setOnClickListener {
+            val currentLanguage = Locale.getDefault().language
+            val newLanguage = if (currentLanguage == "en") "ka" else "en"
+
+            profileViewModel.updateLanguage(newLanguage)
+
+            requireActivity().recreate()
         }
     }
 
@@ -191,6 +206,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         }
         if (binding.etWeight.text.toString().isEmpty()) {
             binding.root.showErrorSnackBar(getString(R.string.weight_should_not_be_empty))
+            return false
+        }
+        if (binding.etHeight.text.toString().toInt() < 100 || binding.etHeight.text.toString()
+                .toInt() > 210
+        ) {
+            binding.root.showErrorSnackBar(getString(R.string.height_should_be_valid_100_210))
             return false
         }
         if (binding.etWeight.text.toString().toInt() < 20 || binding.etWeight.text.toString()

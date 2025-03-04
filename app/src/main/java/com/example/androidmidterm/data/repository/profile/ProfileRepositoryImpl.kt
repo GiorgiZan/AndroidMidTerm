@@ -21,7 +21,7 @@ class ProfileRepositoryImpl @Inject constructor(
             if (!uid.isNullOrEmpty()) {
                 val userData = mapOf("username" to username, "age" to age, "weight" to weight, "height" to height)
 
-                db.collection("users").document(uid).set(userData).await()
+                db.collection("users").document(uid).update(userData).await()
 
                 dataStoreRepository.updateUserDetails(username, age, weight, height)
             }

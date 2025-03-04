@@ -1,5 +1,7 @@
 package com.example.androidmidterm.data.repository.datastore
 
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -7,14 +9,13 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 
 class DataStoreRepository @Inject constructor(
     private val dataStore: DataStore<Preferences>
-) {
+) : IDataStoreRepository {
 
     companion object {
         val REMEMBER_ME = booleanPreferencesKey("remember_me")
@@ -23,22 +24,28 @@ class DataStoreRepository @Inject constructor(
         val USER_AGE = intPreferencesKey("user_age")
         val USER_WEIGHT = intPreferencesKey("user_weight")
         val USER_HEIGHT = intPreferencesKey("user_height")
+        val WORKOUT_COUNT = intPreferencesKey("workout_count")
+
+        val LANGUAGE = stringPreferencesKey("language")
+
 
     }
 
-    val userId: Flow<String?> = dataStore.data.map { it[USER_ID] }
-    val username: Flow<String?> = dataStore.data.map { it[USERNAME] }
-    val userAge: Flow<Int?> = dataStore.data.map { it[USER_AGE] }
-    val userWeight: Flow<Int?> = dataStore.data.map { it[USER_WEIGHT] }
-    val userHeight: Flow<Int?> = dataStore.data.map { it[USER_HEIGHT] }
-    val rememberMe: Flow<Boolean> = dataStore.data.map { it[REMEMBER_ME] ?: false }
+    override val userId: Flow<String?> = dataStore.data.map { it[USER_ID] }
+    override val username: Flow<String?> = dataStore.data.map { it[USERNAME] }
+    override val userAge: Flow<Int?> = dataStore.data.map { it[USER_AGE] }
+    override val userWeight: Flow<Int?> = dataStore.data.map { it[USER_WEIGHT] }
+    override val userHeight: Flow<Int?> = dataStore.data.map { it[USER_HEIGHT] }
+    override val workoutCount: Flow<Int?> = dataStore.data.map { it[WORKOUT_COUNT] }
+    override val rememberMe: Flow<Boolean> = dataStore.data.map { it[REMEMBER_ME] ?: false }
 
-    suspend fun saveUserInfo(
+    override suspend fun saveUserInfo(
         uid: String,
         username: String,
         age: Int,
         weight: Int,
         height: Int,
+        workoutCount :Int,
         rememberMe: Boolean
     ) {
         dataStore.edit { preferences ->
@@ -47,11 +54,12 @@ class DataStoreRepository @Inject constructor(
             preferences[USERNAME] = username
             preferences[USER_WEIGHT] = weight
             preferences[USER_HEIGHT] = height
+            preferences[WORKOUT_COUNT] = workoutCount
             preferences[REMEMBER_ME] = rememberMe
         }
     }
 
-    suspend fun updateUserDetails(username: String, age: Int, weight: Int, height: Int) {
+    override suspend fun updateUserDetails(username: String, age: Int, weight: Int, height: Int) {
         dataStore.edit { preferences ->
             preferences[USERNAME] = username
             preferences[USER_AGE] = age
@@ -61,7 +69,7 @@ class DataStoreRepository @Inject constructor(
     }
 
 
-    suspend fun clearLoginInfo() {
+    override suspend fun clearLoginInfo() {
         dataStore.edit { preferences ->
             preferences.remove(USER_ID)
             preferences.remove(USERNAME)
@@ -69,13 +77,30 @@ class DataStoreRepository @Inject constructor(
             preferences.remove(USER_WEIGHT)
             preferences.remove(USER_HEIGHT)
             preferences.remove(REMEMBER_ME)
+            preferences.remove(WORKOUT_COUNT)
         }
     }
 
-    suspend fun clearEmailIfNotRemembered() {
-        val rememberMeValue = rememberMe.first()
-        if (!rememberMeValue) {
-            clearLoginInfo()
+    override suspend fun updateWorkoutCount(count: Int) {
+        dataStore.edit { preferences ->
+            preferences[WORKOUT_COUNT] = count
         }
     }
+
+
+    override suspend fun saveLanguagePreference(language: String) {
+        dataStore.edit { preferences ->
+            preferences[LANGUAGE] = language
+        }
+    }
+
+    override suspend fun applySavedLanguage() {
+        dataStore.data
+            .collect { preferences ->
+                val savedLanguage = preferences[LANGUAGE] ?: "en"
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(savedLanguage))
+            }
+    }
+
+
 }

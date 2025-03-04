@@ -1,6 +1,5 @@
 package com.example.androidmidterm.presentation.screens.login
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.androidmidterm.common.Resource
@@ -27,13 +26,16 @@ class LoginViewModel @Inject constructor(
     private val _loginState = MutableStateFlow<Resource<Unit>>(Resource.Loading)
     val loginState: StateFlow<Resource<Unit>> = _loginState
 
+    init {
+        applyLanguage()
+    }
+
     suspend fun checkSavedUser(): Boolean {
-        if (!dataStoreRepository.rememberMe.first()){
+        if (!dataStoreRepository.rememberMe.first()) {
             dataStoreRepository.clearLoginInfo()
             return false
         }
         val token = dataStoreRepository.userId.first()
-        Log.d("toke", "$token")
         return !token.isNullOrEmpty()
     }
 
@@ -46,11 +48,12 @@ class LoginViewModel @Inject constructor(
 
             if (result is Resource.Success) {
                 val user = FirebaseAuth.getInstance().currentUser
-                val idToken = user?.getIdToken(true)?.await()?.token
 
                 user?.uid?.let { uid ->
                     val snapshot = firebaseFireStore.collection("users").document(uid).get().await()
+
                     val userData = snapshot.toObject(User::class.java)
+                    val workoutCount = snapshot.getLong("workout_count")?.toInt() ?: 0
 
                     userData?.let { data ->
                         dataStoreRepository.saveUserInfo(
@@ -59,6 +62,7 @@ class LoginViewModel @Inject constructor(
                             data.age,
                             data.weight,
                             data.height,
+                            workoutCount,
                             rememberMe
                         )
                     }
@@ -69,4 +73,9 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    private fun applyLanguage() {
+        viewModelScope.launch {
+            dataStoreRepository.applySavedLanguage()
+        }
+    }
 }

@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
     private val registerViewModel: RegisterViewModel by viewModels()
-    private var hasNavigatedToLogin = false // could make this better problem with stateflow default
+    private var hasNavigatedToLogin = false
 
     override fun setUp() {
     }
@@ -156,6 +156,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         }
         if (binding.etHeight.text.toString().isEmpty()) {
             binding.root.showErrorSnackBar(getString(R.string.height_should_not_be_empty))
+            return false
+        }
+        if (binding.etHeight.text.toString().toInt() < 100 || binding.etHeight.text.toString()
+                .toInt() > 210
+        ) {
+            binding.root.showErrorSnackBar(getString(R.string.height_should_be_valid_100_210))
             return false
         }
         if (binding.etPassword.text.toString().isEmpty()) {

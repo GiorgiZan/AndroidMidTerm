@@ -22,19 +22,3 @@ class GeminiRepositoryImpl @Inject constructor(
         })
     }
 }
-
-//suspend fun main() = runBlocking {
-//    val json = Json {
-//        ignoreUnknownKeys = true // Ignores unknown fields in JSON response
-//    }
-//    val geminiService = Retrofit.Builder()
-//        .baseUrl("https://generativelanguage.googleapis.com/v1beta/") // Replace with the actual base URL
-//        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-//        .build()
-//        .create(RetrofitGeminiService::class.java)
-//
-//    val geminiRepository = GeminiRepository(geminiService)
-//
-//    val response = geminiRepository.fetchGeminiResponse("i am 50 kg 160cm and 15 years old give me home exrcile check list in vert short", "AIzaSyBQ8P4ZcbULmqM5HxjELrswH6Calp35IX8")
-//    println(response)
-//}

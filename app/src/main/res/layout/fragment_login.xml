@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.screens.login.LoginFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:gravity="center"
         android:text="@string/welcome_to_gymbro"
-        android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="35sp"
-        android:layout_marginTop="25dp"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivRegisterImage"
-        android:layout_width="370dp"
-        android:layout_height="380dp"
-        android:src="@drawable/login_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="35dp"
+        android:src="@drawable/login_image"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
+        app:layout_constraintWidth_percent="0.8" />
+
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etEmail"
         android:layout_width="360dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_rectangle_black_corners"
         android:hint="@string/enter_email"
         android:inputType="textEmailAddress"
@@ -74,8 +78,8 @@
         android:id="@+id/chkBoxRememberMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/remember_me"
         android:layout_marginTop="15dp"
+        android:text="@string/remember_me"
         android:textColor="@color/black"
         android:theme="@style/checkBoxStyle"
         app:layout_constraintEnd_toEndOf="@+id/passwordLayout"
@@ -86,16 +90,15 @@
         android:id="@+id/btnLogin"
         android:layout_width="180dp"
         android:layout_height="50dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/black_rounded_rectangle"
+        android:backgroundTint="@color/mint"
         android:text="@string/login"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintEnd_toEndOf="@+id/passwordLayout"
-        app:layout_constraintStart_toStartOf="@+id/passwordLayout"
-        app:layout_constraintTop_toBottomOf="@+id/chkBoxRememberMe" />
-
+        app:layout_constraintStart_toStartOf="@+id/passwordLayout" />
 
 
     <androidx.appcompat.widget.AppCompatButton

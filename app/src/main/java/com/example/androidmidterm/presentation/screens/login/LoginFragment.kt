@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
     private val loginViewModel: LoginViewModel by viewModels()
-    private var hasNavigatedToHome = false // could make this better problem with stateflow default
+    private var hasNavigatedToHome = false
 
 
     override fun setUp() {
@@ -135,11 +135,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         )
     }
 
-    private fun navigateToHomeIfRememberMeIsChecked(){
+    private fun navigateToHomeIfRememberMeIsChecked() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                Log.d("check", "${loginViewModel.checkSavedUser()}")
-                if (loginViewModel.checkSavedUser()){
+                if (loginViewModel.checkSavedUser()) {
                     navigateToHome()
                 }
             }
