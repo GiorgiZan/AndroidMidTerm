@@ -38,7 +38,6 @@ object AppModule {
 
         return builder.build()
     }
-// AIzaSyBQ8P4ZcbULmqM5HxjELrswH6Calp35IX8
 
     @OptIn(ExperimentalSerializationApi::class)
     @Provides
@@ -48,7 +47,7 @@ object AppModule {
             ignoreUnknownKeys = true
         }
         return Retrofit.Builder()
-            .baseUrl("https://generativelanguage.googleapis.com/v1beta/")
+            .baseUrl(BuildConfig.GEMINI_URL)
             .client(client)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()

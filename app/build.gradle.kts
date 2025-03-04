@@ -25,7 +25,7 @@ android {
 
     buildTypes {
         debug {
-//            buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
+            buildConfigField("String", "GEMINI_URL", "\"https://generativelanguage.googleapis.com/v1beta/\"")
             buildConfigField("String", "API_KEY", "\"AIzaSyBQ8P4ZcbULmqM5HxjELrswH6Calp35IX8\"")
         }
         release {
@@ -34,7 +34,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-//            buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
+            buildConfigField("String", "GEMINI_URL", "\"https://generativelanguage.googleapis.com/v1beta/\"")
         }
     }
     compileOptions {
