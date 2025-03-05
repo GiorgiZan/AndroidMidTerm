@@ -8,10 +8,10 @@ GymBro was created to help users easily track their fitness progress, get workou
 
 ## Features
 
-- **Login & Registration**: Users can sign up with their email and password or log in to access their personal information and workout plans.
+- **Login & Registration**: Users can sign up with their email and password or log in to access their personal information.
 - **Profile Management**: Users can input their details (weight, age, height) to personalize their workout experience.
 - **AI Chat Assistant (GymBro)**: Interact with GymBro, the AI-powered assistant, for personalized workout suggestions and fitness tips.
-- **Home**: Displays workout suggestions based on the user's profile and progress.
+- **Home**: Displays workout count and other screen buttons.
 - **Difficulty Selector**: Choose from beginner, intermediate, or advanced workout routines to match your fitness level.
 - **Workouts**: Access workout plans based on selected difficulty and user profile.
 
@@ -19,7 +19,7 @@ GymBro was created to help users easily track their fitness progress, get workou
 
 - **Firebase**: Used for user authentication (email/password login and registration) and storing user data (profile).
 - **Data store**: Local data storage for user progress, workout history, and preferences.
-- **Hilt**: Dependency Injection framework for managing dependencies like `FirebaseAuth` and `FirebaseFirestore`.
+- **Hilt**: Dependency Injection framework .
 - **Kotlin**: Main programming language for Android development.
 - **MVVM Architecture**: Ensures a clean separation of concerns and maintainable code structure.
 - **Retrofit**: Used for handling API calls.
